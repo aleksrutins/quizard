@@ -1,4 +1,6 @@
-import type { LinksFunction } from "@remix-run/cloudflare";
+import { ClerkApp, ClerkErrorBoundary } from "@clerk/remix";
+import { rootAuthLoader } from "@clerk/remix/ssr.server";
+import type { LinksFunction, LoaderFunction } from "@remix-run/cloudflare";
 import { cssBundleHref } from "@remix-run/css-bundle";
 import {
   Links,
@@ -9,11 +11,19 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 
+import stylesheet from "~/tailwind.css";
+
+
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
+  {rel: 'stylesheet', href: stylesheet}
 ];
 
-export default function App() {
+export const loader: LoaderFunction = (args) => rootAuthLoader(args);
+
+export const ErrorBoundary = ClerkErrorBoundary();
+
+function App() {
   return (
     <html lang="en">
       <head>
@@ -31,3 +41,5 @@ export default function App() {
     </html>
   );
 }
+
+export default ClerkApp(App);
