@@ -12,11 +12,15 @@ import {
 } from "@remix-run/react";
 
 import stylesheet from "~/tailwind.css";
-
+import '@fontsource/geist-sans';
+import '@fontsource/geist-sans/300.css';
+import '@fontsource/geist-sans/700.css';
+import '@fontsource/syne';
+import '@fontsource/syne/700.css';
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
-  {rel: 'stylesheet', href: stylesheet}
+  { rel: "stylesheet", href: stylesheet },
 ];
 
 export const loader: LoaderFunction = (args) => rootAuthLoader(args);
@@ -32,8 +36,10 @@ function App() {
         <Meta />
         <Links />
       </head>
-      <body>
-        <Outlet />
+      <body className="bg-stone-200 text-stone-900 dark:bg-stone-800 dark:text-stone-100">
+        <div className="my-2 mx-auto md:max-w-[50dvw] sm:max-w-[75vw] max-w-100vw p-3">
+          <Outlet />
+        </div>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

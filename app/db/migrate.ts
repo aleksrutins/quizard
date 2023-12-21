@@ -1,0 +1,5 @@
+import "dotenv/config";
+import { migrate } from "drizzle-orm/libsql/migrator";
+import { DBEnv, db } from "./db";
+
+await migrate(db(process.env as unknown as DBEnv), { migrationsFolder: './drizzle' });

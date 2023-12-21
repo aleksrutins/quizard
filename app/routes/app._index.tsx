@@ -1,3 +1,70 @@
+import { getAuth } from "@clerk/remix/ssr.server"
+import { PlusIcon } from "@heroicons/react/16/solid"
+import { ActionFunctionArgs, LoaderFunctionArgs, json } from "@remix-run/cloudflare"
+import { Form, useLoaderData } from "@remix-run/react"
+import { eq } from "drizzle-orm"
+import { useState } from "react"
+import { z } from "zod"
+import Modal from "~/components/modal"
+import PageHeader from "~/components/page-header"
+import { DBEnv, db } from "~/db/db"
+import { sets } from "~/db/schema"
+
+export async function loader(args: LoaderFunctionArgs) {
+    const { userId } = await getAuth(args);
+    if(!userId) return [];
+    return await db(args.context.env as DBEnv).select()
+        .from(sets)
+        .where(eq(sets.creator, userId))
+
+}
+
 export default function Home() {
-    return <div></div>
+    const sets = useLoaderData<typeof loader>();
+    const [createSetOpen, setCreateSetOpen] = useState(false);
+    return <div>
+        <PageHeader title="My Sets">
+            <button onClick={() => setCreateSetOpen(true)} className="header-button">
+                <span>Add Set</span>
+                <PlusIcon className="icon"/>
+            </button>
+        </PageHeader>
+
+        <div className="flex flex-row flex-wrap">
+            {sets.map(set => <div className="border-stone-500" key={set.id}>
+                <h3 className="font-display">{set.name}</h3>
+                <p>{set.description}</p>
+            </div>)}
+        </div>
+
+        <Modal open={createSetOpen}>
+            <h2 className="font-display font-bold">Create Set</h2>
+            <Form action="" method="post" onSubmit={() => setCreateSetOpen(false)} className="flex flex-col gap-2">
+                <input type="text" placeholder="Name" className="rounded-md bg-transparent border border-stone-500 px-2 py-1" name="name"/>
+                <textarea name="description" className="rounded-md bg-transparent border border-stone-500 px-2 py-1" placeholder="Description"/>
+                <div className="flex flex-row justify-between">
+                    <button onClick={() => setCreateSetOpen(false)}>Cancel</button>
+                    <button type="submit">Create</button>
+                </div>
+            </Form>
+        </Modal>
+    </div>
+}
+
+export async function action(args: ActionFunctionArgs) {
+    const { userId } = await getAuth(args);
+    if(!userId) return json({ ok: false }, 403);
+
+    const formData = z.object({
+        name: z.string(),
+        description: z.string()
+    }).parse(Object.fromEntries(await args.request.formData()));
+
+    await db(args.context.env as DBEnv)
+        .insert(sets)
+        .values({
+            creator: userId,
+            ...formData
+        })
+    return json({ ok: true });
 }
