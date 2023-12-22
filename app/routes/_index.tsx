@@ -20,7 +20,7 @@ export default function Index() {
       </header>
       <main>
         <h2 className="font-display text-lg pb-2">Study tools that work.</h2>
-        <p>Quizard has no ads, no paywalls, no nothing. Just get to studying.</p>
+        <p>No ads, no paywalls, no nonsense. Just focus.</p>
       </main>
     </div>
   );
