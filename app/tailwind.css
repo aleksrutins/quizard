@@ -3,13 +3,9 @@
 @tailwind utilities;
 
 .header-button {
-    @apply rounded-full py-1 px-3 border border-stone-400 font-light align-middle hover:border-stone-500 dark:hover:border-stone-300 transition-colors;
-}
-
-.header-button span {
-    @apply pr-2;
+    @apply flex flex-row gap-2 items-center rounded-full py-1 px-3 border border-stone-400 font-light align-middle hover:border-stone-500 dark:hover:border-stone-300 transition-colors;
 }
 
 .header-button .icon {
-    @apply h-5 w-5 inline
+    @apply h-5 w-5
 }
