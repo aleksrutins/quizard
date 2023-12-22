@@ -8,9 +8,9 @@ export type ContentType = (typeof contentType)[number];
 export const sets = sqliteTable('sets', {
     id: int('id').primaryKey({ autoIncrement: true }),
 
-    name: text('name'),
-    creator: text('creator'),
-    description: text('description'),
+    name: text('name').notNull(),
+    creator: text('creator').notNull(),
+    description: text('description').notNull(),
     createdAt: int('created_at', { mode: 'timestamp' }).default(sql`CURRENT_TIMESTAMP`)
 }, table => ({
     nameIdx: index('name_idx').on(table.name),
@@ -22,9 +22,9 @@ export const terms = sqliteTable('terms', {
     id: int('id').primaryKey({ autoIncrement: true }),
     setId: int('set_id').references(() => sets.id, { onUpdate: 'cascade', onDelete: 'cascade' }),
 
-    termType: text('term_type', { enum: contentType }),
-    term: text('term'),
+    termType: text('term_type', { enum: contentType }).notNull(),
+    term: text('term').notNull(),
 
-    definitionType: text('definition_type',  { enum: contentType }),
-    definition: text('definition')
+    definitionType: text('definition_type',  { enum: contentType }).notNull(),
+    definition: text('definition').notNull()
 })

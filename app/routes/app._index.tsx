@@ -30,11 +30,13 @@ export default function Home() {
             </button>
         </PageHeader>
 
-        <div className="flex flex-row flex-wrap">
-            {sets.map(set => <div className="border-stone-500" key={set.id}>
-                <h3 className="font-display">{set.name}</h3>
-                <p>{set.description}</p>
-            </div>)}
+        <div className="flex flex-row flex-wrap gap-3">
+            {sets.map(set => 
+                <a href={`/app/set/${set.id}`} className="block border border-stone-500 rounded-md p-3" key={set.id}>
+                    <h3 className="font-display">{set.name}</h3>
+                    <p>{set.description}</p>
+                </a>
+            )}
         </div>
 
         <Modal open={createSetOpen}>
@@ -43,7 +45,7 @@ export default function Home() {
                 <input type="text" placeholder="Name" className="rounded-md bg-transparent border border-stone-500 px-2 py-1" name="name"/>
                 <textarea name="description" className="rounded-md bg-transparent border border-stone-500 px-2 py-1" placeholder="Description"/>
                 <div className="flex flex-row justify-between">
-                    <button onClick={() => setCreateSetOpen(false)}>Cancel</button>
+                    <button type="button" onClick={() => setCreateSetOpen(false)}>Cancel</button>
                     <button type="submit">Create</button>
                 </div>
             </Form>
