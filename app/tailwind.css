@@ -9,3 +9,11 @@
 .header-button .icon {
     @apply h-5 w-5
 }
+
+.btn {
+    @apply cursor-pointer border border-stone-400 shadow-sm rounded py-1 px-3 hover:shadow-md active:shadow-none transition-shadow;
+}
+
+.btn.primary {
+    @apply bg-orange-300 border-orange-400 shadow-orange-400/50 dark:bg-orange-700 dark:border-orange-600 dark:shadow-orange-600/50;
+}

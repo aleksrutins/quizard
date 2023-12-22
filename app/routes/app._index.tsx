@@ -22,7 +22,7 @@ export async function loader(args: LoaderFunctionArgs) {
 export default function Home() {
     const sets = useLoaderData<typeof loader>();
     const [createSetOpen, setCreateSetOpen] = useState(false);
-    return <div>
+    return <>
         <PageHeader title="My Sets">
             <button onClick={() => setCreateSetOpen(true)} className="header-button">
                 <span>Add Set</span>
@@ -40,17 +40,17 @@ export default function Home() {
         </div>
 
         <Modal open={createSetOpen}>
-            <h2 className="font-display font-bold">Create Set</h2>
+            <h2 className="font-display font-bold pb-3">Create Set</h2>
             <Form action="" method="post" onSubmit={() => setCreateSetOpen(false)} className="flex flex-col gap-2">
                 <input type="text" placeholder="Name" className="rounded-md bg-transparent border border-stone-500 px-2 py-1" name="name"/>
                 <textarea name="description" className="rounded-md bg-transparent border border-stone-500 px-2 py-1" placeholder="Description"/>
                 <div className="flex flex-row justify-between">
-                    <button type="button" onClick={() => setCreateSetOpen(false)}>Cancel</button>
-                    <button type="submit">Create</button>
+                    <button className="btn" type="button" onClick={() => setCreateSetOpen(false)}>Cancel</button>
+                    <button className="btn primary" type="submit">Create</button>
                 </div>
             </Form>
         </Modal>
-    </div>
+    </>
 }
 
 export async function action(args: ActionFunctionArgs) {
