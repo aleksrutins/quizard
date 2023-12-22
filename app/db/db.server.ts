@@ -1,6 +1,6 @@
 import { createClient } from "@libsql/client";
 import { drizzle } from "drizzle-orm/libsql";
-import * as schema from './schema';
+import * as schema from './schema.server';
 
 export type DBEnv = { DATABASE_URL?: string, DATABASE_AUTH_TOKEN?: string };
 

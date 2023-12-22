@@ -4,11 +4,11 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "build": "remix build",
+    "build": "npm run migrate && remix build",
     "dev": "remix dev --manual -c \"npm run start\"",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "start": "wrangler pages dev --compatibility-date=2023-06-21 ./public",
-    "migrate": "tsx app/db/migrate.ts",
+    "migrate": "tsx app/db/migrate.server.ts",
     "typecheck": "tsc"
   },
   "dependencies": {

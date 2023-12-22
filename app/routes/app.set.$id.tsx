@@ -3,8 +3,8 @@ import { LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { useLoaderData } from "@remix-run/react";
 import { eq } from "drizzle-orm";
 import PageHeader from "~/components/page-header";
-import { DBEnv, db } from "~/db/db";
-import { sets, terms } from "~/db/schema";
+import { DBEnv, db } from "~/db/db.server";
+import { sets, terms } from "~/db/schema.server";
 
 type Set = typeof sets.$inferSelect;
 type Term = typeof terms.$inferSelect;

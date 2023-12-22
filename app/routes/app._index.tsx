@@ -7,8 +7,8 @@ import { useState } from "react"
 import { z } from "zod"
 import Modal from "~/components/modal"
 import PageHeader from "~/components/page-header"
-import { DBEnv, db } from "~/db/db"
-import { sets } from "~/db/schema"
+import { DBEnv, db } from "~/db/db.server"
+import { sets } from "~/db/schema.server"
 
 export async function loader(args: LoaderFunctionArgs) {
     const { userId } = await getAuth(args);
