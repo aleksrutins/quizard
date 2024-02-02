@@ -28,3 +28,6 @@ export const terms = sqliteTable('terms', {
     definitionType: text('definition_type',  { enum: contentType }).notNull(),
     definition: text('definition').notNull()
 })
+
+export type Set = typeof sets.$inferSelect;
+export type Term = typeof terms.$inferSelect;

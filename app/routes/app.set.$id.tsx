@@ -3,11 +3,9 @@ import { LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { useLoaderData } from "@remix-run/react";
 import { eq } from "drizzle-orm";
 import PageHeader from "~/components/page-header";
+import FlashCards from "~/components/study/flashcards";
 import { DBEnv, db } from "~/db/db.server";
-import { sets, terms } from "~/db/schema.server";
-
-type Set = typeof sets.$inferSelect;
-type Term = typeof terms.$inferSelect;
+import { Set, Term, sets, terms } from "~/db/schema.server";
 
 export async function loader(args: LoaderFunctionArgs) {
     return (await db(args.context.env as DBEnv)
@@ -22,7 +20,7 @@ export async function loader(args: LoaderFunctionArgs) {
         }, { set: null!, terms: [] });
 }
 
-export default function Set() {
+export default function SetView() {
     const data = useLoaderData<typeof loader>();
     const { user } = useUser();
 
@@ -32,5 +30,6 @@ export default function Set() {
             <span className="block py-2">{data.terms.length} terms</span>
             {data.set.creator == user?.id && <a className="btn primary block" href={`/app/set/${data.set.id}/edit`}>Edit Set</a>}
         </div>
+        <FlashCards terms={data.terms}/>
     </>
 }
