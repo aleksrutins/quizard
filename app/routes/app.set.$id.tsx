@@ -28,7 +28,7 @@ export default function Set() {
 
     return <>
         <PageHeader title={data.set.name}/>
-        <div className="flex flex-row justify-between items-center border border-stone-400 bg-stone-300 rounded-lg px-3 py-2">
+        <div className="flex flex-row justify-between items-center border border-stone-400 dark:border-stone-600 bg-stone-300 dark:bg-stone-700 rounded-lg px-3 py-2">
             <span className="block py-2">{data.terms.length} terms</span>
             {data.set.creator == user?.id && <a className="btn primary block" href={`/app/set/${data.set.id}/edit`}>Edit Set</a>}
         </div>
